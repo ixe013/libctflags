@@ -1,6 +1,14 @@
 [package]
-name = "libctflags"
+name = "ctflags"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+dirs = "*"
+md5 = "*"
+tracing = "*"
+
+[lib]
+# "lib" est le type par défaut pour l'écosystème Rust.
+# "cdylib" est une librairie dynamique de style C, idéale pour être chargée par d'autres langages.
+crate-type = ["lib", "staticlib"]
