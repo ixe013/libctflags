@@ -63,7 +63,9 @@ mod tests {
 
     // Test with an inexiting file
     fn set_test_seed_file_name() {
-        env::set_var(FILE_NAME_ENVIRONMENT_VAR, "__missing__.__missing__");
+        unsafe { //Because POSIX makes this not thread safe
+            env::set_var(FILE_NAME_ENVIRONMENT_VAR, "__missing__.__missing__");
+        }
     }
 
     #[test]
