@@ -1,0 +1,26 @@
+name: Rust
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the library
+      run: cargo build --verbose
+    - name: Test the library
+      run: cargo test --verbose
+    - name: Install GCC dependencies
+      run: sudo apt-get update && sudo apt-get install -y g++
+    - name: Build the C++ intergration example
+      run: g++ -o ./testclient example/testclient.cc -Iinclude -Ltarget/debug -lctflags -lpthread -ldl -lm
+    - name: Run the integration
+      run: ./testclient

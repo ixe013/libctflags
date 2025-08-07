@@ -36,8 +36,10 @@ mod tests {
 
     #[test]
     fn example_flag() {
-        env::set_var(seed::FILE_NAME_ENVIRONMENT_VAR, "__missing__.__missing__");
-        env::set_var(GLOBAL_SALT_ENV_VAR, "Hiver2025");
+        unsafe { //Because POSIX makes this not thread safe
+            env::set_var(seed::FILE_NAME_ENVIRONMENT_VAR, ".__example_flag");
+            env::set_var(GLOBAL_SALT_ENV_VAR, "Hiver2025");
+        }
 
         let _ = seed::set("segg1545");
 
