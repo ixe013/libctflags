@@ -4,7 +4,7 @@ use crate::seed;
 
 // Environment variable to define to set a global salt
 // defaults to no salt
-const GLOBAL_SALT_ENV_VAR: &str = "TP2_GLOBAL_SALT";
+const GLOBAL_SALT_ENV_VAR: &str = "FLAG_GLOBAL_SALT";
 
 
 pub fn compute_flag(step: &str, salt: Option<String>) -> String {
