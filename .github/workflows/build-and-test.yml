@@ -20,8 +20,8 @@ jobs:
     - name: Archive artifacts
       uses: actions/upload-artifact@v4
       with:
-          name: libctflag
-          path: target
+        name: libctflag
+        path: target
   test:
     runs-on: ubuntu-latest
     steps:

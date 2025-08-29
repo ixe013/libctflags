@@ -40,6 +40,10 @@ fn seed_file_name() -> PathBuf {
    }
 }
 
+pub fn create_seed_context(name: &str) -> PathBuf {
+    PathBuf::from(name)
+}
+
 
 pub fn get_from_context(context: &PathBuf) -> Result<String, io::Error> {
     fs::read_to_string(context.as_path())
@@ -90,13 +94,9 @@ mod tests {
     use super::*;
 
     // Test run in parallel, each needs its own variable
-    fn set_test_seed_file_name(name: &str) -> PathBuf {
-        PathBuf::from(name)
-    }
-
     #[test]
     fn fails_if_not_set() {
-        let context = set_test_seed_file_name(".__fails_if_not_set");
+        let context = create_seed_context(".__fails_if_not_set");
         clear_from_context(&context); // In case the last test crashed and left a file on disk
         assert!(get_from_context(&context).is_err());
         let _ = clear_from_context(&context);
@@ -104,7 +104,7 @@ mod tests {
 
     #[test]
     fn seed_round_trip() {
-        let context = set_test_seed_file_name(".__seed_round_trip");
+        let context = create_seed_context(".__seed_round_trip");
         clear_from_context(&context); // In case the last test crashed and left a file on disk
         assert!(!set_from_context(&context, "example").is_err());
         assert_eq!(get_from_context(&context).unwrap(), "example");
