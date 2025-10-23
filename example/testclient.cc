@@ -16,6 +16,7 @@ int main() {
 
     ctflags::Flag flag("example");
     if (flag) {
+        std::cout << "Bonjour" << std::endl;
         std::cout << "Example flag: " << flag.get() << std::endl;
     }
 
