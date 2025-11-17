@@ -5,6 +5,7 @@ edition = "2024"
 
 [dependencies]
 dirs = "*"
+once_cell = "*"
 md5 = "*"
 tracing = "*"
 
