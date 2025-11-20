@@ -9,9 +9,9 @@ use tracing::{info, error};
 use once_cell::sync::Lazy;
 
 // The default seed file name if none is provided
-const DEFAULT_SEED_FILE_NAME: &str = ".tp2.seed";
+const DEFAULT_SEED_FILE_NAME: &str = ".ctflags.seed";
 // Environment variable will override the default seed file name if set
-pub const FILE_NAME_ENVIRONMENT_VAR: &str = "TP2_SEED_FILE_NAME";
+pub const FILE_NAME_ENVIRONMENT_VAR: &str = "CTFLAGS_SEED_FILE_NAME";
 
 // Default global context for legacy code
 static DEFAULT_CONTEXT: Lazy<PathBuf> = Lazy::new(|| {
