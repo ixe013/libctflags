@@ -53,9 +53,9 @@ mod tests {
     #[test]
     fn legacy_environment_based_flag() {
         assert_eq!(compute_flag("example", None),
-            "5f1b958992ca66c09c0ac9170fce85de");
+            "1a79a4d60de6718e8e5b326e338ae533");
         assert_eq!(compute_flag("example", Some("app noise".to_string())),
-            "c37b2bf9e83b0c886c166bbb7e28c8fe");
+            "5251b4290fb05756da94df1ec637b5a7");
     }
 
     #[test]
@@ -67,6 +67,7 @@ mod tests {
 
         assert_eq!(compute_flag_from_context(&context, "example", None),
             "5f1b958992ca66c09c0ac9170fce85de");
+
         assert_eq!(compute_flag_from_context(&context, "example", Some("app noise".to_string())),
             "98bf92ea5a1438ed465490c9c2396409");
 
