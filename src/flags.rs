@@ -13,15 +13,12 @@ pub fn compute_flag_from_context(context: &PathBuf, step: &str, salt: Option<Str
 
     digest.consume(step);
 
-    match env::var(GLOBAL_SALT_ENV_VAR) {
-        Ok(s) => digest.consume(s),
-        _ => (),
+    digest.consume(seed::get_from_context_or_null(context));
+
+    if let Some(s) = salt {
+        digest.consume(s);
     }
 
-    match salt {
-        Some(s) => digest.consume(s),
-        None => digest.consume(seed::get_from_context_or_null(context)),
-    }
     format!("{:x}", digest.finalize())
 }
 
@@ -30,15 +27,16 @@ pub fn compute_flag(step: &str, salt: Option<String>) -> String {
 
     digest.consume(step);
 
-    match env::var(GLOBAL_SALT_ENV_VAR) {
-        Ok(s) => digest.consume(s),
-        _ => (),
+    if let Ok(global_salt) = env::var(GLOBAL_SALT_ENV_VAR) {
+        digest.consume(global_salt);
     }
 
-    match salt {
-        Some(s) => digest.consume(s),
-        None => digest.consume(seed::get_or_null()),
+    if let Some(app_salt) = salt {
+        digest.consume(app_salt);
     }
+
+    digest.consume(seed::get_or_null());
+
     format!("{:x}", digest.finalize())
 }
 
@@ -53,8 +51,31 @@ mod tests {
     use super::*;
 
     #[test]
+    fn legacy_environment_based_flag() {
+        assert_eq!(compute_flag("example", None),
+            "5f1b958992ca66c09c0ac9170fce85de");
+        assert_eq!(compute_flag("example", Some("app noise".to_string())),
+            "c37b2bf9e83b0c886c166bbb7e28c8fe");
+    }
+
+    #[test]
+    fn same_flag_increasing_noise() {
+        // Create a context file for this test (to avoid collision with other tests)
+        let context = seed::create_seed_context(".__example1");
+        // Save a seed to that context file
+        assert!(!seed::set_from_context(&context, "segg1545").is_err());
+
+        assert_eq!(compute_flag_from_context(&context, "example", None),
+            "5f1b958992ca66c09c0ac9170fce85de");
+        assert_eq!(compute_flag_from_context(&context, "example", Some("app noise".to_string())),
+            "98bf92ea5a1438ed465490c9c2396409");
+
+        let _ = seed::clear_from_context(&context);
+    }
+
+    #[test]
     fn example_flag() {
-        let context = seed::create_seed_context(".__example_flag");
+        let context = seed::create_seed_context(".__example2");
         assert!(!seed::set_from_context(&context, "segg1545").is_err());
 
         assert_eq!(compute_flag_from_context(&context, "example", None), "5f1b958992ca66c09c0ac9170fce85de");

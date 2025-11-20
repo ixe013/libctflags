@@ -58,7 +58,7 @@ pub fn get_from_context_or_null(context: &PathBuf) -> String {
 
 
 pub fn set_from_context(context: &PathBuf, seed: &str) -> Result<(), Error> {
-    info!("Writing {} to {}", seed, context.display());
+    info!("Writing seed {} to context file {}", seed, context.display());
     fs::write(context.as_path(), seed)?;
     Ok(())
 }
