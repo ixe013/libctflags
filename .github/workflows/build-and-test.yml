@@ -1,4 +1,4 @@
-name: Rust
+name: Build, test and integrate
 
 on:
   push:
@@ -41,9 +41,6 @@ jobs:
       CTFLAGS_SEED_FILE_NAME: ctflag.seed
       FLAG_GLOBAL_SALT: "YOURKEY"
     steps:
-    - name: Checkout source code
-      uses: actions/checkout@v4
-
     - name: Install C++ compiler and dependencies
       run: sudo apt-get update && sudo apt-get install --assume-yes g++
 
@@ -52,6 +49,9 @@ jobs:
       with:
         name: libctflag
         path: target/
+
+    - name: Checkout source code
+      uses: actions/checkout@v4
 
     - name: Build the C++ intergration example
       run: g++ -o ./testclient example/testclient.cc -Iinclude -Ltarget/release -lctflags -lpthread -ldl -lm
