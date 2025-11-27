@@ -14,7 +14,7 @@ int main() {
         std::cout << "Seed is : " << seed.get() << std::endl;
     }
 
-    ctflags::Flag flag("example");
+    ctflags::Flag flag("segg1545");
     if (flag) {
         std::cout << "Example flag: " << flag.get() << std::endl;
     }

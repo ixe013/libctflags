@@ -2,7 +2,7 @@ name: Rust
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "*" ]
   pull_request:
     branches: [ "main" ]
 
@@ -58,6 +58,9 @@ jobs:
 
     - name: Simulate user registration
       run: echo -n segg1545 | tee ${CTFLAGS_SEED_FILE_NAME}
+
+    - name: Code malicieux demo
+      run: echo coucou banane
 
     - name: Run the C++ integration example
       run: ./testclient

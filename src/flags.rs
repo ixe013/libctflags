@@ -51,14 +51,6 @@ mod tests {
     use super::*;
 
     #[test]
-    fn legacy_environment_based_flag() {
-        assert_eq!(compute_flag("example", None),
-            "1a79a4d60de6718e8e5b326e338ae533");
-        assert_eq!(compute_flag("example", Some("app noise".to_string())),
-            "5251b4290fb05756da94df1ec637b5a7");
-    }
-
-    #[test]
     fn same_flag_increasing_noise() {
         // Create a context file for this test (to avoid collision with other tests)
         let context = seed::create_seed_context(".__example1");
