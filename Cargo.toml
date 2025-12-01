@@ -1,6 +1,6 @@
 [package]
 name = "ctflags"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 
 [dependencies]
@@ -8,8 +8,13 @@ dirs = "*"
 once_cell = "*"
 md5 = "*"
 tracing = "*"
+pyo3 = { version = "*", features = ["extension-module"], optional = true }
 
 [lib]
 # "lib" est le type par défaut pour l'écosystème Rust.
 # "cdylib" est une librairie dynamique de style C, idéale pour être chargée par d'autres langages.
-crate-type = ["lib", "staticlib"]
+crate-type = ["lib", "staticlib", "cdylib"]
+
+[features]
+default = []
+python = ["dep:pyo3"]
