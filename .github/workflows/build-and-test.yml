@@ -56,6 +56,12 @@ jobs:
           name: python-wheels
           path: target/wheels/*.whl
 
+      - name: Upload Release Asset
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: target/wheels/*.whl
+
       - name: Install Wheel
         # On installe le .whl généré pour vérifier qu'il est valide
         run: pip install target/wheels/*.whl
