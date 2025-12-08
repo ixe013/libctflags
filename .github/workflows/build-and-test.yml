@@ -39,6 +39,9 @@ jobs:
   build-python:
     runs-on: ubuntu-latest
     needs: build
+    env:
+      CTFLAGS_SEED_FILE_NAME: ctflag.seed
+      FLAG_GLOBAL_SALT: ${{ secrets.FLAG_GLOBAL_SALT }}
     steps:
       - uses: actions/checkout@v4
 
@@ -87,7 +90,7 @@ jobs:
     needs: build
     env:
       CTFLAGS_SEED_FILE_NAME: ctflag.seed
-      FLAG_GLOBAL_SALT: "YOURKEY"
+      FLAG_GLOBAL_SALT: ${{ secrets.FLAG_GLOBAL_SALT }}
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
