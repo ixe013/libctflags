@@ -61,12 +61,6 @@ jobs:
           name: python-wheels
           path: target/wheels/*.whl
 
-      - name: Upload Release Asset
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v1
-        with:
-          files: target/wheels/*.whl
-
       - name: Install Wheel
         # On installe le .whl généré pour vérifier qu'il est valide
         run: pip install target/wheels/*.whl
@@ -78,12 +72,22 @@ jobs:
         # Petit test inline pour s'assurer que le module se charge et fonctionne
         run: python example/testclient.py
 
-      - name: Upload Wheel Artifact
-        uses: actions/upload-artifact@v4
+  release:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    needs:
+      - build-python
+    steps:
+      - name: Download wheel artifacts
+        uses: actions/download-artifact@v4
         with:
           name: python-wheels
-          path: target/wheels/*.whl
-          overwrite: true
+          path: target/wheels
+
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v1
+        with:
+          files: target/wheels/*.whl
 
   integrate:
     runs-on: ubuntu-latest
