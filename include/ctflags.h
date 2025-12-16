@@ -13,7 +13,7 @@ extern "C" {
     const char* ctflags_get_seed_or_null();
     void ctflags_free_string(const char* ptr);
     const char* ctflags_format_flag(const char* step, const char* salt);
-    const char* ctflags_format_flag_from_string_context(const char* context, const char* step, const char* salt);
+    const char* ctflags_format_flag_from_context(const char* context, const char* step, const char* salt);
 }
 
 namespace ctflags {
@@ -64,7 +64,7 @@ public:
         : m_ptr(ctflags_format_flag(step, salt)) {}
 
     Flag(const char* context, const char* step, const char* salt = nullptr)
-        : m_ptr(ctflags_format_flag_from_string_context(context, step, salt)) {}
+        : m_ptr(ctflags_format_flag_from_context(context, step, salt)) {}
 
     ~Flag() {
         ctflags_free_string(m_ptr);
