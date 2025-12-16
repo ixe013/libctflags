@@ -29,9 +29,14 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    env:
+      CTFLAGS_SEED_FILE_NAME: ctflag.seed
     steps:
     - name: Checkout source code
       uses: actions/checkout@v4
+
+    - name: Simulate user registration
+      run: echo -n segg1545 | tee ${CTFLAGS_SEED_FILE_NAME}
 
     - name: Test the library
       run: cargo test
