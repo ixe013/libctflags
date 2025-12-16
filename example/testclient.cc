@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cassert>
+#include <cstring>
 
 #include "ctflags.h"
 
@@ -18,6 +20,11 @@ int main() {
     if (flag) {
         std::cout << "Example flag: " << flag.get() << std::endl;
     }
+
+    // Test with a string context
+    ctflags::Flag flag2("segg1545", "example", nullptr);
+    std::cout << "Flag with string context is " << flag2.get() << std::endl;
+    assert(strcmp(flag2.get(), "flag(example).5f1b958992ca66c09c0ac9170fce85de") == 0);
 
     return 0;
 }

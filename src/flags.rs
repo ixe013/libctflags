@@ -60,6 +60,10 @@ pub fn format_flag(step: &str, salt: Option<String>) -> String {
     format!("flag({step}).{}", compute_flag(step, salt))
 }
 
+pub fn format_flag_from_string_context(context: &str, step: &str, salt: Option<String>) -> String {
+    format!("flag({step}).{}", compute_flag_from_string_context(context, step, salt))
+}
+
 
 #[cfg(test)]
 mod tests {
