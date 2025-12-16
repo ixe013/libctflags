@@ -22,6 +22,21 @@ pub fn compute_flag_from_context(context: &PathBuf, step: &str, salt: Option<Str
     format!("{:x}", digest.finalize())
 }
 
+pub fn compute_flag_from_string_context(context: &str, step: &str, salt: Option<String>) -> String {
+    let mut digest = md5::Context::new();
+
+    digest.consume(step);
+
+    digest.consume(context);
+
+    if let Some(s) = salt {
+        digest.consume(s);
+    }
+
+    format!("{:x}", digest.finalize())
+}
+
+
 pub fn compute_flag(step: &str, salt: Option<String>) -> String {
     let mut digest = md5::Context::new();
 
@@ -43,6 +58,10 @@ pub fn compute_flag(step: &str, salt: Option<String>) -> String {
 
 pub fn format_flag(step: &str, salt: Option<String>) -> String {
     format!("flag({step}).{}", compute_flag(step, salt))
+}
+
+pub fn format_flag_from_string_context(context: &str, step: &str, salt: Option<String>) -> String {
+    format!("flag({step}).{}", compute_flag_from_string_context(context, step, salt))
 }
 
 
@@ -82,5 +101,11 @@ mod tests {
         assert_eq!(compute_flag_from_context(&context, "example", None), "5f1b958992ca66c09c0ac9170fce85de");
 
         let _ = seed::clear_from_context(&context);
+    }
+
+    #[test]
+    // Equivalent to existing example_flag test
+    fn example_flag_with_string_context() {
+        assert_eq!(compute_flag_from_string_context("segg1545", "example", None), "5f1b958992ca66c09c0ac9170fce85de");
     }
 }
