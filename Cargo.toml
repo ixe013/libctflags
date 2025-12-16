@@ -8,7 +8,7 @@ dirs = "*"
 once_cell = "*"
 md5 = "*"
 tracing = "*"
-pyo3 = { version = "*", features = ["extension-module"], optional = true }
+pyo3 = { version = "*", features = ["extension-module", "abi3-py37"], optional = true }
 
 [lib]
 # "lib" est le type par défaut pour l'écosystème Rust.
