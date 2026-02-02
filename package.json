@@ -1,0 +1,16 @@
+{
+  "name": "ctflags",
+  "version": "0.4.0",
+  "main": "index.js",
+  "napi": {
+    "name": "ctflags"
+  },
+  "scripts": {
+    "build": "napi build --platform --release",
+    "build:debug": "napi build --platform",
+    "test": "node test.js"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^2.18.0"
+  }
+}
