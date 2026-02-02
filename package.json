@@ -6,8 +6,8 @@
     "name": "ctflags"
   },
   "scripts": {
-    "build": "napi build --platform --release",
-    "build:debug": "napi build --platform",
+    "build": "napi build --release --features node",
+    "build:debug": "napi build --features node",
     "test": "node test.js"
   },
   "devDependencies": {

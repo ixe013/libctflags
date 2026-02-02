@@ -9,11 +9,11 @@ once_cell = "*"
 md5 = "*"
 tracing = "*"
 pyo3 = { version = "*", features = ["extension-module", "abi3-py37"], optional = true }
-napi = { version = "2", default-features = false, features = ["napi4"], optional = true }
-napi-derive = { version = "2", optional = true }
+napi = { version = "*", default-features = false, features = ["napi4"], optional = true }
+napi-derive = { version = "*", optional = true }
 
 [build-dependencies]
-napi-build = "2"
+napi-build = "*"
 
 [lib]
 crate-type = ["lib", "staticlib", "cdylib"]
