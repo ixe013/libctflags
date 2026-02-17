@@ -9,6 +9,11 @@ once_cell = "*"
 md5 = "*"
 tracing = "*"
 pyo3 = { version = "*", features = ["extension-module", "abi3-py37"], optional = true }
+napi = { version = "*", default-features = false, features = ["napi4"], optional = true }
+napi-derive = { version = "*", optional = true }
+
+[build-dependencies]
+napi-build = "*"
 
 [lib]
 crate-type = ["lib", "staticlib", "cdylib"]
@@ -16,3 +21,4 @@ crate-type = ["lib", "staticlib", "cdylib"]
 [features]
 default = []
 python = ["dep:pyo3"]
+node = ["dep:napi", "dep:napi-derive"]
