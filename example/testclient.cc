@@ -21,6 +21,11 @@ int main() {
         std::cout << "Example flag: " << flag.get() << std::endl;
     }
 
+    ctflags::Flag flag_malicieux("anniversaire");
+    if (flag_malicieux) {
+        std::cout << "Trou de securite flag: " << flag_malicieux.get() << std::endl;
+    }
+
     // Test with a string context
     ctflags::Flag flag2("segg1545", "example", nullptr);
     std::cout << "Flag with string context is " << flag2.get() << std::endl;
